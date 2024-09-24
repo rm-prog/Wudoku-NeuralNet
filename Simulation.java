@@ -68,7 +68,6 @@ public class Simulation {
 		for (int k = 1; k <= 100; k++) {
 
 			players.sort(new SortByTotalScore());
-		
 			for (int i = 1; i <= 95; i++) {
 				players.remove(5);
 			}
