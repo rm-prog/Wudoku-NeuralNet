@@ -1,8 +1,11 @@
 import java.util.ArrayList;
 
 public class Field {
-	
-	private int[][] field = new int[9][9];
+
+	private static final int COLUMNS = 9;
+	private static final int ROWS = 9;
+
+	private int[][] field = new int[ROWS][COLUMNS];
 
 	public void putTileOnField (Tile tile, int x, int y) {
 		tile.putTileOnField(field, x, y);
@@ -47,8 +50,8 @@ public class Field {
 
 		int points = 0;
 
-		int[] columns = new int[9];
-		int[] rows = new int[9];
+		int[] columns = new int[COLUMNS];
+		int[] rows = new int[ROWS];
 		int[] cubes = new int[9];
 
 		for (int i = 0; i < 9; i++) {
@@ -92,22 +95,22 @@ public class Field {
 	}
 
 	public void updateField () {
-		int[] columns = new int[9];
-		int[] rows = new int[9];
+		int[] columns = new int[COLUMNS];
+		int[] rows = new int[ROWS];
 		int[] cubes = new int[9];
 
-		for (int i = 0; i < 9; i++) {
+		for (int i = 0; i < ROWS; i++) {
 			rows[i] = 1;
-			for (int j = 0; j < 9; j++) {
+			for (int j = 0; j < COLUMNS; j++) {
 				if (field[i][j] == 0) {
 					rows[i] = 0;
 					break;
 				}
 			}
 		}
-		for (int i = 0; i < 9; i++) {
+		for (int i = 0; i < COLUMNS; i++) {
 			columns[i] = 1;
-			for (int j = 0; j < 9; j++) {
+			for (int j = 0; j < ROWS; j++) {
 				if (field[j][i] == 0) {
 					columns[i] = 0;
 					break;
@@ -129,16 +132,16 @@ public class Field {
 				cubeIndex++;
 			}
 		}
-		for (int i = 0; i < 9; i++) {
+		for (int i = 0; i < ROWS; i++) {
 			if (rows[i] == 1) {
-				for (int j = 0; j < 9; j++) {
+				for (int j = 0; j < COLUMNS; j++) {
 					field[i][j] = 0;
 				}
 			}
 		}
-		for (int i = 0; i < 9; i++) {
+		for (int i = 0; i < COLUMNS; i++) {
 			if (columns[i] == 1) {
-				for (int j = 0; j < 9; j++) {
+				for (int j = 0; j < ROWS; j++) {
 					field[j][i] = 0;
 				}
 			}
@@ -166,8 +169,8 @@ public class Field {
 
 	public boolean doesTileFitField (Tile tile) {
 		
-		for (int i = 0; i < 9; i++) {
-			for (int j = 0; j < 9; j++) {
+		for (int i = 0; i < ROWS; i++) {
+			for (int j = 0; j < COLUMNS; j++) {
 				if (tile.doesTileFitField(field, j, i)) return true;
 			}
 		}
@@ -176,8 +179,8 @@ public class Field {
 	
 	public int numOfavailablePositions (Tile tile) {
 		int result = 0;
-		for (int i = 0; i < 9; i++) {
-			for (int j = 0; j < 9; j++) {
+		for (int i = 0; i < ROWS; i++) {
+			for (int j = 0; j < COLUMNS; j++) {
 				if (tile.doesTileFitField(field, j, i)) result++;
 			}
 		}
@@ -185,9 +188,9 @@ public class Field {
 	}
 
 	public int[][] availablePositions (Tile tile) {
-		ArrayList<int[]> positions = new ArrayList<int[]>();
-		for (int i = 0; i < 9; i++) {
-			for (int j = 0; j < 9; j++) {
+		ArrayList<int[]> positions = new ArrayList<>();
+		for (int i = 0; i < ROWS; i++) {
+			for (int j = 0; j < COLUMNS; j++) {
 				if (tile.doesTileFitField(field, j, i)) positions.add(new int[] { j, i});
 			}
 		}
@@ -196,8 +199,8 @@ public class Field {
 	}
 
 	public int[] firstAvailablePosition (Tile tile) {
-		for (int i = 0; i < 9; i++) {
-			for (int j = 0; j < 9; j++) {
+		for (int i = 0; i < ROWS; i++) {
+			for (int j = 0; j < COLUMNS; j++) {
 				if (tile.doesTileFitField(field, j, i)) return new int[] { j, i };
 			}
 		}
@@ -209,7 +212,6 @@ public class Field {
 		int[] populations = new int[9];
 		int cubeIndex = 0;
 		for (int k = 0; k <= 6; k += 3) {
-			int population = 0;
 			for (int l = 0; l <= 6; l += 3) {
 				for (int i = 0; i < 3; i++) {
 					for (int j = 0; j < 3; j++) {
